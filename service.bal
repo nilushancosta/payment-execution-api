@@ -29,4 +29,9 @@ service / on new http:Listener(9090) {
             description: "transaction completed successfully"
         };
     }
+
+    resource function post payment/executeerror(@http:Payload Payment payment) returns PaymentResult|http:InternalServerError|error {
+        log:printInfo("payment execution recieved. Going to send an error", payment = payment);
+        return http:INTERNAL_SERVER_ERROR;
+    }
 }
